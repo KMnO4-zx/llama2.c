@@ -85,7 +85,7 @@ DATA_CACHE_DIR = "/Users/kmno4-zx/Desktop/Daily/github-project/llama2.c/data"
 vocab_size=32000
 
 # 设置用于词汇表训练的数据分片数量，数量较少以提高效率
-num_shards = 10
+num_shards = 20
 
 # 1) 导出一大块文本作为单个文本文件tiny.txt
 tiny_file = os.path.join(DATA_CACHE_DIR, "tiny.txt")
@@ -118,8 +118,3 @@ trainer = BpeTrainer(vocab_size=32000, min_frequency=2, special_tokens=["<s>", "
 tokenizer.train_from_iterator(batch_iterator(text_data), trainer)
 # 保存训练好的 Tokenizer
 tokenizer.save("tokenizer.json")
-# tokenizer_file 是训练好的 Tokenizer 文件路径
-fast_tokenizer = PreTrainedTokenizerFast(tokenizer_file="tokenizer.json", pad_token="<pad>", bos_token="<s>", eos_token="</s>", unk_token="<unk>")
-fast_tokenizer.save_pretrained("tokenizer_fasts")
-
-os.remove("tokenizer.json")  # 删除临时文件
